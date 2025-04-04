@@ -2,19 +2,22 @@ import { NavBar } from "~/components/NavBar";
 import fondoObservatorio from "../assets/images/fondo_observatorio.png";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 export function LandingPage() {
   const text = [
     "Actualización del mercado empresarial.",
     "Nuevas oportunidades de inversión.",
     "Resultados del último estudio económico.",
   ];
+
   const [index, setIndex] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((prev) => prev + 1);
-    }, 2000);
+      setIndex((prev) => (prev + 1) % text.length);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
+
   return (
     <>
       <NavBar />
@@ -41,7 +44,9 @@ export function LandingPage() {
           </p>
         </div>
         <div className="py-4 pl-10">
-          <Button variant="contained">Descubre más</Button>
+          <Link to={"camino"}>
+            <Button variant="contained">Inicia tu experiencia</Button>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col items-center text-center gap-10 py-5 text-[#0056b3]">
