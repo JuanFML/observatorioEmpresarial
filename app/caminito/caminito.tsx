@@ -32,7 +32,7 @@ export function Caminito() {
           >
             <LinearProgress variant="determinate" value={progress} />
           </Box>
-          <div className="relative w-full h-full ">
+          <div className="relative w-full">
             <div
               onClick={() => {
                 setStep(2);
