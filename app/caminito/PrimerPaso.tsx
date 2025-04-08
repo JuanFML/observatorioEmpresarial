@@ -5,7 +5,13 @@ import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 import CorporateFareOutlinedIcon from "@mui/icons-material/CorporateFareOutlined";
 import { Tarjeta } from "./Tarjeta";
 
-export function PrimerPaso() {
+type PrimerPasoProps = {
+  setTexto: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export function PrimerPaso(props: PrimerPasoProps) {
+  const { setTexto } = props;
+
   return (
     <>
       <div className="text-center flex-col  pt-2">
@@ -15,20 +21,40 @@ export function PrimerPaso() {
         </div>
       </div>
       <div className="flex justify-center pt-10">
-        <div className="grid grid-cols-3 w-2/3 gap-10">
-          <Tarjeta text={"Soy creador/a de empresa"}>
+        <div className="grid md:grid-cols-3 w-2/3 gap-10">
+          <Tarjeta
+            text={"Soy creador/a de empresa"}
+            setTexto={setTexto}
+            textToConcat="creador/a de empresa"
+          >
             <AccountCircleOutlinedIcon sx={{ fontSize: 60 }} />
           </Tarjeta>
-          <Tarjeta text={"Informal"}>
+          <Tarjeta
+            text={"Informal"}
+            setTexto={setTexto}
+            textToConcat="informal"
+          >
             <OutdoorGrillOutlinedIcon sx={{ fontSize: 60 }} />
           </Tarjeta>
-          <Tarjeta text={"Tengo Micrompresa"}>
+          <Tarjeta
+            text={"Tengo Micrompresa"}
+            setTexto={setTexto}
+            textToConcat="creador/a de microempresa"
+          >
             <StorefrontOutlinedIcon sx={{ fontSize: 60 }} />
           </Tarjeta>
-          <Tarjeta text={"Tengo Pyme"}>
+          <Tarjeta
+            text={"Tengo Pyme"}
+            setTexto={setTexto}
+            textToConcat="creador/a de Pyme "
+          >
             <StoreOutlinedIcon sx={{ fontSize: 60 }} />
           </Tarjeta>
-          <Tarjeta text={"Soy gran empresario/o"}>
+          <Tarjeta
+            text={"Soy gran empresario/o"}
+            setTexto={setTexto}
+            textToConcat="gran empresario/o"
+          >
             <CorporateFareOutlinedIcon sx={{ fontSize: 60 }} />
           </Tarjeta>
         </div>

@@ -5,7 +5,14 @@ import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
 import QueryStatsOutlinedIcon from "@mui/icons-material/QueryStatsOutlined";
 import { Tarjeta } from "./Tarjeta";
 
-export function TercerPaso() {
+type TercerPasoProps = {
+  setTexto: React.Dispatch<React.SetStateAction<string>>;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  setProgress: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export function TercerPaso(props: TercerPasoProps) {
+  const { setTexto, setStep, setProgress } = props;
   return (
     <>
       <div className="text-center flex-col  pt-2">
@@ -16,18 +23,54 @@ export function TercerPaso() {
       </div>
       <div className="flex justify-center pt-10">
         <div className="grid grid-cols-3 w-2/3 gap-10">
-          <Tarjeta text={"Capacitación/ Formación"}>
-            <SchoolOutlinedIcon sx={{ fontSize: 60 }} />
-          </Tarjeta>
+          <div
+            onClick={() => {
+              setStep(4);
+              setProgress(75);
+            }}
+          >
+            <Tarjeta
+              text={"Capacitación/ Formación"}
+              setTexto={setTexto}
+              textToConcat="capacitación en..."
+            >
+              <SchoolOutlinedIcon sx={{ fontSize: 60 }} />
+            </Tarjeta>
+          </div>
           <Tarjeta text={"Programas para fortalecer mi empresa"}>
             <QueryStatsOutlinedIcon sx={{ fontSize: 60 }} />
           </Tarjeta>
-          <Tarjeta text={"Servicios para mi sector"}>
-            <DomainAddOutlinedIcon sx={{ fontSize: 60 }} />
-          </Tarjeta>
-          <Tarjeta text={"Tramites legales para mi empresa"}>
-            <GavelOutlinedIcon sx={{ fontSize: 60 }} />
-          </Tarjeta>
+
+          <div
+            onClick={() => {
+              setStep(6);
+              setProgress(75);
+            }}
+          >
+            <Tarjeta
+              text={"Servicios para mi sector"}
+              setTexto={setTexto}
+              textToConcat="servicios para el sector..."
+            >
+              <DomainAddOutlinedIcon sx={{ fontSize: 60 }} />
+            </Tarjeta>
+          </div>
+
+          <div
+            onClick={() => {
+              setStep(5);
+              setProgress(75);
+            }}
+          >
+            <Tarjeta
+              text={"Tramites legales para mi empresa"}
+              setTexto={setTexto}
+              textToConcat="tramites legales para..."
+            >
+              <GavelOutlinedIcon sx={{ fontSize: 60 }} />
+            </Tarjeta>
+          </div>
+
           <Tarjeta text={"Información empresarial y estadisticas"}>
             <PollOutlinedIcon sx={{ fontSize: 60 }} />
           </Tarjeta>
