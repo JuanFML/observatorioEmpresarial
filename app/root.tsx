@@ -38,7 +38,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
+    message = error.status === 404 ? "404" : `Error: ${JSON.stringify(error)}`;
     details =
       error.status === 404
         ? "The requested page could not be found."
@@ -60,3 +60,4 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     </main>
   );
 }
+

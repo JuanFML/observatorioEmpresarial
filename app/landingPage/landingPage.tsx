@@ -3,7 +3,14 @@ import fondoObservatorio from "../assets/images/fondo_observatorio.png";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-export function LandingPage() {
+
+type LandingPageType = {
+  datosPrecioDolar: { fecha: string; dato: string };
+};
+
+export function LandingPage(props: LandingPageType) {
+  const { datosPrecioDolar } = props;
+
   const text = [
     "Actualización del mercado empresarial.",
     "Nuevas oportunidades de inversión.",
@@ -91,3 +98,4 @@ export function LandingPage() {
     </>
   );
 }
+

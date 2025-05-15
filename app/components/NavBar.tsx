@@ -91,9 +91,11 @@ export const NavBar = () => {
                 ))}
               </Menu>
               <Box alignContent={"center"}>
-                <Button variant="text" sx={{}} size="large">
-                  <Typography fontWeight={600}>Noticias</Typography>
-                </Button>
+                <Link to={"/indicadores"}>
+                  <Button variant="text" sx={{}} size="large">
+                    <Typography fontWeight={600}>Indicadores</Typography>
+                  </Button>
+                </Link>
               </Box>
               <Box alignContent={"center"}>
                 <Button variant="text" size="large">
