@@ -22,10 +22,17 @@ const settings = [
   "Ambiente y sostenibilidad",
 ];
 
+const indicadores = [
+  ["Nacionales", "indicadores-nacionales"],
+  ["Locales", "indicadores-locales"],
+];
+
 export const NavBar = () => {
   const [anchorSectores, setAnchorSectores] = useState<null | HTMLElement>(
     null
   );
+  const [anchorIndicadores, setAnchorIndicadores] =
+    useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorSectores(event.currentTarget);
@@ -33,6 +40,14 @@ export const NavBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorSectores(null);
+  };
+
+  const handleOpenIndicadorMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorIndicadores(event.currentTarget);
+  };
+
+  const handleCloseIndicadorMenu = () => {
+    setAnchorIndicadores(null);
   };
 
   return (
@@ -91,12 +106,43 @@ export const NavBar = () => {
                 ))}
               </Menu>
               <Box alignContent={"center"}>
-                <Link to={"/indicadores"}>
-                  <Button variant="text" sx={{}} size="large">
-                    <Typography fontWeight={600}>Indicadores</Typography>
-                  </Button>
-                </Link>
+                <Button
+                  variant="text"
+                  sx={{}}
+                  size="large"
+                  onClick={handleOpenIndicadorMenu}
+                >
+                  <Typography fontWeight={600}>Indicadores</Typography>
+                </Button>
               </Box>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorIndicadores}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+                open={Boolean(anchorIndicadores)}
+                onClose={handleCloseIndicadorMenu}
+              >
+                {indicadores.map((indicador) => (
+                  <MenuItem
+                    key={indicador[0]}
+                    onClick={handleCloseIndicadorMenu}
+                  >
+                    <Link to={`/${indicador[1]}`}>
+                      <Typography sx={{ textAlign: "center" }}>
+                        {indicador[0]}
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
+              </Menu>
               <Box alignContent={"center"}>
                 <Button variant="text" size="large">
                   <Typography fontWeight={600}>

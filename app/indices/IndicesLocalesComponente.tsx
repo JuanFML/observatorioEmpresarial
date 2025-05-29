@@ -1,58 +1,62 @@
-import { NavBar } from "~/components/NavBar";
-import { LineChart } from "@mui/x-charts/LineChart";
-import { ClientOnly } from "~/components/ClientOnly";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { LineChart } from "@mui/x-charts";
 import { useEffect, useState } from "react";
-import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { ChartsReferenceLine } from "@mui/x-charts";
-import inegiLogo from "../assets/images/inegi_logo.jpg";
+import { NavBar } from "~/components/NavBar";
 
-type IndicesINEGIType = {
-  xIgaeAnual: string[];
-  rawIgaeAnual: [][];
-  xIgaeMensual: string[];
-  rawIgaeMensual: [][];
-  largoDatos: number;
-  largoDatosMensual: number;
-  datosPrecioDolar: { fecha: string; dato: string };
-  indicadoresIgae: string[];
+type IndicesLocalesType = {
+  xDataAnualImaief: string[];
+  xDataMonthlyImaief: string[];
+  anualRawDataImaief: number[][];
+  monthlyRawDataImaief: number[][];
+  largoDatosMonthlyImaief: number;
+  indicadoresImaief: string[];
 };
 
-export function IndicesINEGI(props: IndicesINEGIType) {
-  const {
-    rawIgaeAnual,
-    xIgaeAnual,
-    xIgaeMensual,
-    rawIgaeMensual,
-    largoDatos,
-    largoDatosMensual,
-    datosPrecioDolar,
-    indicadoresIgae,
+export function IndicesLocalesComponente(props: IndicesLocalesType) {
+  let {
+    xDataAnualImaief,
+    xDataMonthlyImaief,
+    anualRawDataImaief,
+    monthlyRawDataImaief,
+    largoDatosMonthlyImaief,
+    indicadoresImaief,
   } = props;
-  const inicioDeDatos = 5;
+  // Quitando los indices que no se ocupan
+  const unwantedIndex = [1, 6];
+  const inicioDeDatos = 7;
+
+  anualRawDataImaief = anualRawDataImaief.filter(
+    (_, colIndex) => !unwantedIndex.includes(colIndex)
+  );
+  monthlyRawDataImaief = monthlyRawDataImaief.filter(
+    (_, colIndex) => !unwantedIndex.includes(colIndex - inicioDeDatos)
+  );
+  indicadoresImaief = indicadoresImaief.filter(
+    (_, colIndex) => !unwantedIndex.includes(colIndex)
+  );
 
   const [indicadorGraficaUno, setIndicadorGraficaUno] = useState<number>(0);
   const [dataGraficaUno, setDataGraficaUno] = useState<number[]>(
-    rawIgaeAnual[inicioDeDatos + 0].slice(largoDatos - 12, largoDatos)
-  );
-  const [indicadorGraficaDos, setIndicadorGraficaDos] = useState<number>(0);
-  const [dataGraficaDos, setDataGraficaDos] = useState<number[]>(
-    rawIgaeMensual[inicioDeDatos + 0].slice(largoDatos - 12, largoDatos)
+    anualRawDataImaief[0].slice(0, -1)
   );
 
   useEffect(() => {
-    setDataGraficaUno(
-      rawIgaeAnual[inicioDeDatos + indicadorGraficaUno].slice(
-        largoDatos - 12,
-        largoDatos
-      )
-    );
+    setDataGraficaUno(anualRawDataImaief[indicadorGraficaUno].slice(0, -1));
   }, [indicadorGraficaUno]);
+
+  const [indicadorGraficaDos, setIndicadorGraficaDos] = useState<number>(0);
+  const [dataGraficaDos, setDataGraficaDos] = useState<number[]>(
+    monthlyRawDataImaief[inicioDeDatos].slice(
+      largoDatosMonthlyImaief - 12,
+      largoDatosMonthlyImaief
+    )
+  );
 
   useEffect(() => {
     setDataGraficaDos(
-      rawIgaeMensual[inicioDeDatos + indicadorGraficaDos].slice(
-        largoDatosMensual - 12,
-        largoDatosMensual
+      monthlyRawDataImaief[inicioDeDatos + indicadorGraficaDos].slice(
+        largoDatosMonthlyImaief - 12,
+        largoDatosMonthlyImaief
       )
     );
   }, [indicadorGraficaDos]);
@@ -60,13 +64,17 @@ export function IndicesINEGI(props: IndicesINEGIType) {
   return (
     <>
       <NavBar />
-
       <div className="grid grid-cols-2 p-5 gap-7">
         <div className="col-span-2 text-2xl font-semibold ">
-          Indicador Global de la Actividad Economica (IGAE)
+          Indicador Mensual de la Actividad Industrial por Entidad Federativa
+          (IMAIEF)
+          <div className="text-lg">Coahuila de Zaragoza</div>
+          <div className="text-lg">
+            Base 2018. Serie de enero 2003 a enero 2025
+          </div>
         </div>
-        <div>Series desestacionalizadas. Indice Base 2018 = 100</div>
-        <div>Variación porcentual respecto al mes inmediato anterior.</div>
+        <div>Serie anual</div>
+        <div>Serie mensual</div>
         <div>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Indicador</InputLabel>
@@ -79,7 +87,7 @@ export function IndicesINEGI(props: IndicesINEGIType) {
                 setIndicadorGraficaUno(event.target.value);
               }}
             >
-              {indicadoresIgae.map((indicador, index) => (
+              {indicadoresImaief.map((indicador, index) => (
                 <MenuItem value={index}>{indicador}</MenuItem>
               ))}
             </Select>
@@ -90,7 +98,7 @@ export function IndicesINEGI(props: IndicesINEGIType) {
               {
                 id: "Año",
                 scaleType: "band",
-                data: xIgaeAnual,
+                data: xDataAnualImaief,
               },
             ]}
             series={[
@@ -113,7 +121,7 @@ export function IndicesINEGI(props: IndicesINEGIType) {
                 setIndicadorGraficaDos(event.target.value);
               }}
             >
-              {indicadoresIgae.map((indicador, index) => (
+              {indicadoresImaief.map((indicador, index) => (
                 <MenuItem value={index}>{indicador}</MenuItem>
               ))}
             </Select>
@@ -124,7 +132,7 @@ export function IndicesINEGI(props: IndicesINEGIType) {
               {
                 id: "Año",
                 scaleType: "band",
-                data: xIgaeMensual,
+                data: xDataMonthlyImaief,
               },
             ]}
             series={[
@@ -134,19 +142,8 @@ export function IndicesINEGI(props: IndicesINEGIType) {
               },
             ]}
             height={500}
-          >
-            <ChartsReferenceLine y={0} />
-          </LineChart>
+          ></LineChart>
         </div>
-
-        <div className="text-2xl">
-          <div>Precio del dolar</div>
-          <div>{`Fecha ${datosPrecioDolar.fecha}`}</div>
-          <div>{`Precio ${datosPrecioDolar.dato}`}</div>
-        </div>
-      </div>
-      <div className="flex justify-end">
-        <Box component="img" src={inegiLogo} sx={{ width: 120, height: 100 }} />
       </div>
     </>
   );
