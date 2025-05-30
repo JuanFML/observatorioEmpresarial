@@ -1,7 +1,9 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { LineChart } from "@mui/x-charts";
 import { useEffect, useState } from "react";
+import { LineChartComponent } from "~/components/LineChartComponent";
 import { NavBar } from "~/components/NavBar";
+import { SelectComponent } from "~/components/SelectComponent";
 
 type IndicesLocalesType = {
   xDataAnualImaief: string[];
@@ -10,6 +12,10 @@ type IndicesLocalesType = {
   monthlyRawDataImaief: number[][];
   largoDatosMonthlyImaief: number;
   indicadoresImaief: string[];
+  xDataItaee: string[];
+  itaeeRawData: any[][];
+  indicadoresItaee: string[];
+  largoDatosMonthlyItaee: number;
 };
 
 export function IndicesLocalesComponente(props: IndicesLocalesType) {
@@ -20,46 +26,83 @@ export function IndicesLocalesComponente(props: IndicesLocalesType) {
     monthlyRawDataImaief,
     largoDatosMonthlyImaief,
     indicadoresImaief,
+    xDataItaee,
+    itaeeRawData,
+    indicadoresItaee,
+    largoDatosMonthlyItaee,
   } = props;
   // Quitando los indices que no se ocupan
-  const unwantedIndex = [1, 6];
-  const inicioDeDatos = 7;
+  const unwantedImaiefIndex = [1, 6];
+  const inicioDeDatosImaief = 7;
 
   anualRawDataImaief = anualRawDataImaief.filter(
-    (_, colIndex) => !unwantedIndex.includes(colIndex)
+    (_, colIndex) => !unwantedImaiefIndex.includes(colIndex)
   );
   monthlyRawDataImaief = monthlyRawDataImaief.filter(
-    (_, colIndex) => !unwantedIndex.includes(colIndex - inicioDeDatos)
+    (_, colIndex) =>
+      !unwantedImaiefIndex.includes(colIndex - inicioDeDatosImaief)
   );
   indicadoresImaief = indicadoresImaief.filter(
-    (_, colIndex) => !unwantedIndex.includes(colIndex)
+    (_, colIndex) => !unwantedImaiefIndex.includes(colIndex)
   );
 
-  const [indicadorGraficaUno, setIndicadorGraficaUno] = useState<number>(0);
-  const [dataGraficaUno, setDataGraficaUno] = useState<number[]>(
-    anualRawDataImaief[0].slice(0, -1)
+  const unwantedItaeeIndex = [4, 5, 6, 7, 8];
+  const inicioDeDatosItaee = 7;
+
+  itaeeRawData = itaeeRawData.filter(
+    (_, colIndex) => !unwantedItaeeIndex.includes(colIndex - inicioDeDatosItaee)
   );
+  indicadoresItaee = indicadoresItaee.filter(
+    (_, colIndex) => !unwantedItaeeIndex.includes(colIndex)
+  );
+
+  const [indicadorGraficaImaiefAnual, setIndicadorGraficaImaiefAnual] =
+    useState<number>(0);
+  const [dataGraficaImaiefAnual, setDataGraficaImaiefAnual] = useState<
+    number[]
+  >(anualRawDataImaief[0].slice(0, -1));
 
   useEffect(() => {
-    setDataGraficaUno(anualRawDataImaief[indicadorGraficaUno].slice(0, -1));
-  }, [indicadorGraficaUno]);
+    setDataGraficaImaiefAnual(
+      anualRawDataImaief[indicadorGraficaImaiefAnual].slice(0, -1)
+    );
+  }, [indicadorGraficaImaiefAnual]);
 
-  const [indicadorGraficaDos, setIndicadorGraficaDos] = useState<number>(0);
-  const [dataGraficaDos, setDataGraficaDos] = useState<number[]>(
-    monthlyRawDataImaief[inicioDeDatos].slice(
+  const [indicadorGraficaImaiefMensual, setIndicadorGraficaImaiefMensual] =
+    useState<number>(0);
+  const [dataGraficaImaiefMensual, setDataGraficaImaiefMensual] = useState<
+    number[]
+  >(
+    monthlyRawDataImaief[inicioDeDatosImaief].slice(
       largoDatosMonthlyImaief - 12,
       largoDatosMonthlyImaief
     )
   );
 
   useEffect(() => {
-    setDataGraficaDos(
-      monthlyRawDataImaief[inicioDeDatos + indicadorGraficaDos].slice(
-        largoDatosMonthlyImaief - 12,
-        largoDatosMonthlyImaief
+    setDataGraficaImaiefMensual(
+      monthlyRawDataImaief[
+        inicioDeDatosImaief + indicadorGraficaImaiefMensual
+      ].slice(largoDatosMonthlyImaief - 12, largoDatosMonthlyImaief)
+    );
+  }, [indicadorGraficaImaiefMensual]);
+
+  const [indicadorGraficaItaee, setIndicadorGraficaItaee] = useState<number>(0);
+  const [dataGraficaItaee, setDataGraficaItaee] = useState<number[]>(
+    itaeeRawData[inicioDeDatosItaee].slice(
+      largoDatosMonthlyItaee - 4,
+      largoDatosMonthlyItaee
+    )
+  );
+
+  useEffect(() => {
+    setDataGraficaItaee(
+      itaeeRawData[inicioDeDatosItaee + indicadorGraficaItaee].slice(
+        largoDatosMonthlyItaee - 4,
+        largoDatosMonthlyItaee
       )
     );
-  }, [indicadorGraficaDos]);
+  }, [indicadorGraficaItaee]);
 
   return (
     <>
@@ -73,76 +116,59 @@ export function IndicesLocalesComponente(props: IndicesLocalesType) {
             Base 2018. Serie de enero 2003 a enero 2025
           </div>
         </div>
-        <div>Serie anual</div>
-        <div>Serie mensual</div>
+        {/* Grafica IMAIEF ANUAL */}
         <div>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Indicador</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={indicadorGraficaUno}
-              label="Indicador"
-              onChange={(event) => {
-                setIndicadorGraficaUno(event.target.value);
-              }}
-            >
-              {indicadoresImaief.map((indicador, index) => (
-                <MenuItem value={index}>{indicador}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <div className="pb-4">Serie anual</div>
+          <SelectComponent
+            indicadorGrafica={indicadorGraficaImaiefAnual}
+            setIndicadorGrafica={setIndicadorGraficaImaiefAnual}
+            indicadores={indicadoresImaief}
+          />
 
-          <LineChart
-            xAxis={[
-              {
-                id: "Año",
-                scaleType: "band",
-                data: xDataAnualImaief,
-              },
-            ]}
-            series={[
-              {
-                data: dataGraficaUno,
-              },
-            ]}
-            height={500}
+          <LineChartComponent
+            xData={xDataAnualImaief}
+            dataGrafica={dataGraficaImaiefAnual}
+            color="#2196f3"
           />
         </div>
-        <div>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Indicador</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={indicadorGraficaDos}
-              label="Indicador"
-              onChange={(event) => {
-                setIndicadorGraficaDos(event.target.value);
-              }}
-            >
-              {indicadoresImaief.map((indicador, index) => (
-                <MenuItem value={index}>{indicador}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
 
-          <LineChart
-            xAxis={[
-              {
-                id: "Año",
-                scaleType: "band",
-                data: xDataMonthlyImaief,
-              },
-            ]}
-            series={[
-              {
-                data: dataGraficaDos,
-                color: "#f28e2c",
-              },
-            ]}
-            height={500}
-          ></LineChart>
+        {/* Grafica IMAIEF Mensual */}
+
+        <div>
+          <div className="pb-4">Serie mensual</div>
+
+          <SelectComponent
+            indicadorGrafica={indicadorGraficaImaiefMensual}
+            setIndicadorGrafica={setIndicadorGraficaImaiefMensual}
+            indicadores={indicadoresImaief}
+          />
+
+          <LineChartComponent
+            xData={xDataMonthlyImaief}
+            dataGrafica={dataGraficaImaiefMensual}
+            color="#f28e2c"
+          />
+        </div>
+
+        {/* Grafica ITAEE Mensual */}
+        <div className="col-span-2 text-2xl font-semibold ">
+          Indicador Trimestral de la Actividad Industrial por Economica Estatal
+          (ITAEE)
+          <div className="text-lg">Coahuila de Zaragoza</div>
+          <div className="text-lg">Base 2018</div>
+        </div>
+        <div>
+          <SelectComponent
+            indicadorGrafica={indicadorGraficaItaee}
+            setIndicadorGrafica={setIndicadorGraficaItaee}
+            indicadores={indicadoresItaee}
+          />
+
+          <LineChartComponent
+            xData={xDataItaee}
+            dataGrafica={dataGraficaItaee}
+            color="#f44336"
+          />
         </div>
       </div>
     </>

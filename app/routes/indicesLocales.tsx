@@ -18,17 +18,10 @@ export async function loader({ params }: Route.LoaderArgs) {
     indicadoresImaief,
   } = processImaiefData(imaiefBuffer);
 
-  // const itaee = path.resolve("app/assets/docs/ITAEE_25.xlsx");
-  // const itaeeBuffer = fs.readFileSync(itaee); // Synchronously read the file
-  // const {
-  //   xData: xData,
-  //   rawData: rawData,
-  //   largoDatos: largoDatos,
-  // } = processIgaeData(igaeBuffer);
-
-  // const idPesosPorDolar = "SF43718";
-  // const response = await getSerieUltimoCierre(idPesosPorDolar);
-  // const datosPrecioDolar = response.bmx.series[0].datos[0];
+  const itaee = path.resolve("app/assets/docs/ITAEE_25.xlsx");
+  const itaeeBuffer = fs.readFileSync(itaee); // Synchronously read the file
+  const { xDataItaee, itaeeRawData, indicadoresItaee, largoDatosMonthlyItaee } =
+    processItaeeData(itaeeBuffer);
 
   return {
     xDataAnualImaief,
@@ -37,6 +30,10 @@ export async function loader({ params }: Route.LoaderArgs) {
     monthlyRawDataImaief,
     largoDatosMonthlyImaief,
     indicadoresImaief,
+    xDataItaee,
+    itaeeRawData,
+    indicadoresItaee,
+    largoDatosMonthlyItaee,
   };
 }
 
@@ -49,6 +46,10 @@ export default function IndicesLocales({ loaderData }: Route.ComponentProps) {
       monthlyRawDataImaief={loaderData.monthlyRawDataImaief}
       largoDatosMonthlyImaief={loaderData.largoDatosMonthlyImaief}
       indicadoresImaief={loaderData.indicadoresImaief}
+      xDataItaee={loaderData.xDataItaee}
+      itaeeRawData={loaderData.itaeeRawData}
+      indicadoresItaee={loaderData.indicadoresItaee}
+      largoDatosMonthlyItaee={loaderData.largoDatosMonthlyItaee}
     />
   );
 }
@@ -147,5 +148,79 @@ const processImaiefData = (
     monthlyRawDataImaief: monthlyRawData,
     largoDatosMonthlyImaief: ultimaCeldaConInfoMonthly,
     indicadoresImaief,
+  };
+};
+
+const processItaeeData = (
+  buffer: Buffer<ArrayBufferLike>
+): {
+  xDataItaee: string[];
+  itaeeRawData: any[][];
+  indicadoresItaee: string[];
+  largoDatosMonthlyItaee: number;
+} => {
+  const workbook = XLSX.read(buffer);
+  const sheetName = workbook.SheetNames;
+  const worksheet = workbook.Sheets[sheetName[0]];
+  const rawData: [][] = XLSX.utils.sheet_to_json(worksheet, {
+    header: 1,
+    defval: null,
+  });
+  const indicadoresItaee = rawData
+    .slice(7, 23)
+    .map((indi: string[]) => indi[0].trim());
+
+  const triDataColumns = rawData[5]
+    .map((cell: string, i) => (cell?.includes("T") ? i : false))
+    .filter((cell) => cell);
+
+  const triRawData = rawData
+    .map((row) =>
+      row.filter((_, colIndex) => triDataColumns.includes(colIndex))
+    )
+    .slice(0, 23);
+
+  let currentYear = 0;
+  const years = rawData[4].map((cell: string) => {
+    if (cell) {
+      currentYear = Number(cell.trim().replace("P", "").replace("R", ""));
+      return currentYear;
+    } else {
+      return currentYear;
+    }
+  });
+
+  const yearsForTriData = years.filter((_, colIndex) =>
+    triDataColumns.includes(colIndex)
+  );
+
+  let ultimaCeldaConInfoTri = 0;
+  triRawData[7].map((cell: number, i) => {
+    if (typeof cell === "number") {
+      ultimaCeldaConInfoTri = i;
+    }
+  });
+  ultimaCeldaConInfoTri += 1;
+  const trimestres = triRawData[5].map((tri: string) =>
+    tri.replace("P", "").replace("R", "")
+  );
+  const yearFromLastTris = yearsForTriData.slice(
+    ultimaCeldaConInfoTri - 4,
+    ultimaCeldaConInfoTri
+  );
+  const last4Tris = trimestres.slice(
+    ultimaCeldaConInfoTri - 4,
+    ultimaCeldaConInfoTri
+  );
+
+  const xDataTris: string[] = yearFromLastTris.map(
+    (year, index) => `${year} ${last4Tris[index]}`
+  );
+
+  return {
+    xDataItaee: xDataTris,
+    itaeeRawData: triRawData,
+    indicadoresItaee,
+    largoDatosMonthlyItaee: ultimaCeldaConInfoTri,
   };
 };

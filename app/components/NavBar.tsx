@@ -25,6 +25,7 @@ const settings = [
 const indicadores = [
   ["Nacionales", "indicadores-nacionales"],
   ["Locales", "indicadores-locales"],
+  ["Mercado Financiero", "financiero"],
 ];
 
 export const NavBar = () => {
