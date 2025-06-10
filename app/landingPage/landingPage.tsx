@@ -34,7 +34,7 @@ export function LandingPage(props: LandingPageType) {
           backgroundImage: `url(${fondoObservatorio})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          width: "100vw",
+          width: "fit",
           height: "400px",
         }}
       >
@@ -98,4 +98,3 @@ export function LandingPage(props: LandingPageType) {
     </>
   );
 }
-

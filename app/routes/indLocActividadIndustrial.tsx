@@ -1,9 +1,9 @@
-import type { Route } from "./+types/indicesLocales";
+import type { Route } from "./+types/indLocActividadIndustrial";
 import * as XLSX from "xlsx";
 import path from "path";
 /* load 'fs' for readFile and writeFile support */
 import * as fs from "fs";
-import { IndicesLocalesComponente } from "~/indices/IndicesLocalesComponente";
+import { ActividadIndustrial } from "~/indicadoresLocales/actividadIndustrial";
 XLSX.set_fs(fs);
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -37,9 +37,11 @@ export async function loader({ params }: Route.LoaderArgs) {
   };
 }
 
-export default function IndicesLocales({ loaderData }: Route.ComponentProps) {
+export default function IndicadoresLocalesActividadIndustrial({
+  loaderData,
+}: Route.ComponentProps) {
   return (
-    <IndicesLocalesComponente
+    <ActividadIndustrial
       xDataAnualImaief={loaderData.xDataAnualImaief}
       xDataMonthlyImaief={loaderData.xDataMonthlyImaief}
       anualRawDataImaief={loaderData.anualRawDataImaief}

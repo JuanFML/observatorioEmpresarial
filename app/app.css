@@ -9,3 +9,7 @@ html,
 body {
   @apply bg-white;
 }
+
+.sidebar-link {
+  @apply flex justify-start items-center rounded-md hover:rounded-md hover:bg-slate-200 p-1 active:bg-slate-200 focus:bg-slate-200 text-base m-1;
+}

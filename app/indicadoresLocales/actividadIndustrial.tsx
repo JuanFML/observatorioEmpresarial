@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { LineChartComponent } from "~/components/LineChartComponent";
 import { NavBar } from "~/components/NavBar";
 import { SelectComponent } from "~/components/SelectComponent";
+import { SideBar } from "~/components/SideBar";
 
-type IndicesLocalesType = {
+type IndicadoresLocalesType = {
   xDataAnualImaief: string[];
   xDataMonthlyImaief: string[];
   anualRawDataImaief: number[][];
@@ -18,7 +19,7 @@ type IndicesLocalesType = {
   largoDatosMonthlyItaee: number;
 };
 
-export function IndicesLocalesComponente(props: IndicesLocalesType) {
+export function ActividadIndustrial(props: IndicadoresLocalesType) {
   let {
     xDataAnualImaief,
     xDataMonthlyImaief,
@@ -106,7 +107,6 @@ export function IndicesLocalesComponente(props: IndicesLocalesType) {
 
   return (
     <>
-      <NavBar />
       <div className="grid grid-cols-2 p-5 gap-7">
         <div className="col-span-2 text-2xl font-semibold ">
           Indicador Mensual de la Actividad Industrial por Entidad Federativa

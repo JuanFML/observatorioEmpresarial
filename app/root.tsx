@@ -5,12 +5,15 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigation,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const navigation = useNavigation();
+
   return (
     <html lang="en">
       <head>
@@ -20,6 +23,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        {navigation.state === "loading" && (
+          <div className="fixed inset-0 flex items-center justify-center bg-white opacity-70 z-50">
+            <div className="w-10 h-10 border-4 border-gray-300 border-t-4 border-t-blue-500 rounded-full animate-spin"></div>
+          </div>
+        )}
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -60,4 +68,3 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     </main>
   );
 }
-

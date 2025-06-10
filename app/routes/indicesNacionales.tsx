@@ -1,10 +1,10 @@
-import { IndicesINEGI } from "~/indices/indicesInegi";
+import { IndicesINEGI } from "~/indicadores/indicesInegi";
 import type { Route } from "./+types/indicesNacionales";
 import * as XLSX from "xlsx";
 import path from "path";
 /* load 'fs' for readFile and writeFile support */
 import * as fs from "fs";
-import { getSerieUltimoCierre } from "~/server/banxico.server";
+// import { getSerieUltimoCierre } from "~/server/banxico.server";
 XLSX.set_fs(fs);
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -25,9 +25,10 @@ export async function loader({ params }: Route.LoaderArgs) {
     largoDatos: largoDatosMensual,
   } = processIgaeData(igaeMensualBuffer);
 
-  const idPesosPorDolar = "SF43718";
-  const response = await getSerieUltimoCierre(idPesosPorDolar);
-  const datosPrecioDolar = response.bmx.series[0].datos[0];
+  // const idPesosPorDolar = "SF43718";
+  // const response = await getSerieUltimoCierre(idPesosPorDolar);
+  // const datosPrecioDolar = response.bmx.series[0].datos[0];
+  const datosPrecioDolar = { fecha: "", dato: "" };
 
   return {
     xDataIgae,

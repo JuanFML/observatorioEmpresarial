@@ -25,7 +25,7 @@ const settings = [
 const indicadores = [
   ["Nacionales", "indicadores-nacionales"],
   ["Locales", "indicadores-locales"],
-  ["Mercado Financiero", "financiero"],
+  ["Mercado Financiero", "mercado-financiero"],
 ];
 
 export const NavBar = () => {
@@ -132,16 +132,16 @@ export const NavBar = () => {
                 onClose={handleCloseIndicadorMenu}
               >
                 {indicadores.map((indicador) => (
-                  <MenuItem
-                    key={indicador[0]}
-                    onClick={handleCloseIndicadorMenu}
-                  >
-                    <Link to={`/${indicador[1]}`}>
+                  <Link to={`/${indicador[1]}`}>
+                    <MenuItem
+                      key={indicador[0]}
+                      onClick={handleCloseIndicadorMenu}
+                    >
                       <Typography sx={{ textAlign: "center" }}>
                         {indicador[0]}
                       </Typography>
-                    </Link>
-                  </MenuItem>
+                    </MenuItem>
+                  </Link>
                 ))}
               </Menu>
               <Box alignContent={"center"}>

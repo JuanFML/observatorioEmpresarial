@@ -37,3 +37,16 @@ export const indicadoresIgae = [
   "Otros servicios excepto actividades gubernamentales",
   "Actividades legislativas, gubernamentales, de impartición de justicia y de organismos internacionales y extraterritoriales",
 ];
+
+export const colors = [
+  "#1f77b4", // Blue
+  "#ff7f0e", // Orange
+  "#2ca02c", // Green
+  "#d62728", // Red
+  "#9467bd", // Purple
+  "#8c564b", // Brown
+  "#e377c2", // Pink
+  "#7f7f7f", // Gray
+  "#bcbd22", // Olive
+  "#17becf", // Teal
+];
