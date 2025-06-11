@@ -10,17 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import cidesieLogo from "../assets/images/Logo_CIDESIE.png";
-const pages = ["Products", "Pricing", "Blog"];
-const settings = [
-  "Manufactura",
-  "Comercio",
-  "Servicios",
-  "Finanzas",
-  "Digital",
-  "Ambiente y sostenibilidad",
-];
+import inegiLogo from "../assets/images/inegi_logo.jpg";
+import banxicoLogo from "../assets/images/banxico.png";
 
 const indicadores = [
   ["Nacionales", "indicadores-nacionales"],
@@ -29,19 +22,8 @@ const indicadores = [
 ];
 
 export const NavBar = () => {
-  const [anchorSectores, setAnchorSectores] = useState<null | HTMLElement>(
-    null
-  );
   const [anchorIndicadores, setAnchorIndicadores] =
     useState<null | HTMLElement>(null);
-
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorSectores(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorSectores(null);
-  };
 
   const handleOpenIndicadorMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorIndicadores(event.currentTarget);
@@ -50,6 +32,8 @@ export const NavBar = () => {
   const handleCloseIndicadorMenu = () => {
     setAnchorIndicadores(null);
   };
+  const location = useLocation();
+  console.log();
 
   return (
     <>
@@ -73,39 +57,7 @@ export const NavBar = () => {
                   />
                 </Button>
               </Link>
-              <Box alignContent={"center"}>
-                <Button
-                  variant="text"
-                  sx={{}}
-                  size="large"
-                  onClick={handleOpenUserMenu}
-                >
-                  <Typography fontWeight={600}>Sectores</Typography>
-                </Button>
-              </Box>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorSectores}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
-                }}
-                open={Boolean(anchorSectores)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography sx={{ textAlign: "center" }}>
-                      {setting}
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
+
               <Box alignContent={"center"}>
                 <Button
                   variant="text"
@@ -131,8 +83,8 @@ export const NavBar = () => {
                 open={Boolean(anchorIndicadores)}
                 onClose={handleCloseIndicadorMenu}
               >
-                {indicadores.map((indicador) => (
-                  <Link to={`/${indicador[1]}`}>
+                {indicadores.map((indicador, index) => (
+                  <Link to={`/${indicador[1]}`} key={index}>
                     <MenuItem
                       key={indicador[0]}
                       onClick={handleCloseIndicadorMenu}
@@ -162,6 +114,22 @@ export const NavBar = () => {
                 </Button>
               </Box>
             </Box>
+            <div className="flex justify-end">
+              {location.pathname.includes("indicadores") && (
+                <Box
+                  component="img"
+                  src={inegiLogo}
+                  sx={{ width: 90, height: 60 }}
+                />
+              )}
+              {location.pathname.includes("mercado") && (
+                <Box
+                  component="img"
+                  src={banxicoLogo}
+                  sx={{ width: 100, height: 70 }}
+                />
+              )}
+            </div>
           </Toolbar>
         </Container>
       </AppBar>

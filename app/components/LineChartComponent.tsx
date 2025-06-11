@@ -1,4 +1,4 @@
-import { LineChart } from "@mui/x-charts";
+import { ChartsReferenceLine, LineChart } from "@mui/x-charts";
 
 type LineChartComponent = {
   xData: string[];
@@ -25,7 +25,9 @@ export const LineChartComponent = (props: LineChartComponent) => {
           },
         ]}
         height={500}
-      ></LineChart>
+      >
+        <ChartsReferenceLine y={0} />
+      </LineChart>
     </div>
   );
 };

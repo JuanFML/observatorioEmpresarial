@@ -4,7 +4,7 @@ import { ClientOnly } from "~/components/ClientOnly";
 import { useEffect, useState } from "react";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { ChartsReferenceLine } from "@mui/x-charts";
-import inegiLogo from "../assets/images/inegi_logo.jpg";
+import { LineChartComponent } from "~/components/LineChartComponent";
 
 type IndicesINEGIType = {
   xIgaeAnual: string[];
@@ -13,11 +13,10 @@ type IndicesINEGIType = {
   rawIgaeMensual: [][];
   largoDatos: number;
   largoDatosMensual: number;
-  datosPrecioDolar: { fecha: string; dato: string };
   indicadoresIgae: string[];
 };
 
-export function IndicesINEGI(props: IndicesINEGIType) {
+export function ActividadEconomica(props: IndicesINEGIType) {
   const {
     rawIgaeAnual,
     xIgaeAnual,
@@ -25,7 +24,6 @@ export function IndicesINEGI(props: IndicesINEGIType) {
     rawIgaeMensual,
     largoDatos,
     largoDatosMensual,
-    datosPrecioDolar,
     indicadoresIgae,
   } = props;
   const inicioDeDatos = 5;
@@ -59,14 +57,16 @@ export function IndicesINEGI(props: IndicesINEGIType) {
 
   return (
     <>
-      <NavBar />
-
       <div className="grid grid-cols-2 p-5 gap-7">
         <div className="col-span-2 text-2xl font-semibold ">
           Indicador Global de la Actividad Economica (IGAE)
+          <div className="text-lg font-normal">
+            Series desestacionalizadas. Indice Base 2018 = 100
+          </div>
+          <div className="text-lg font-normal">
+            Variación porcentual respecto al mes inmediato anterior.
+          </div>
         </div>
-        <div>Series desestacionalizadas. Indice Base 2018 = 100</div>
-        <div>Variación porcentual respecto al mes inmediato anterior.</div>
         <div>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Indicador</InputLabel>
@@ -85,20 +85,10 @@ export function IndicesINEGI(props: IndicesINEGIType) {
             </Select>
           </FormControl>
 
-          <LineChart
-            xAxis={[
-              {
-                id: "Año",
-                scaleType: "band",
-                data: xIgaeAnual,
-              },
-            ]}
-            series={[
-              {
-                data: dataGraficaUno,
-              },
-            ]}
-            height={500}
+          <LineChartComponent
+            xData={xIgaeAnual}
+            dataGrafica={dataGraficaUno}
+            color="#2196f3"
           />
         </div>
         <div>
@@ -119,34 +109,12 @@ export function IndicesINEGI(props: IndicesINEGIType) {
             </Select>
           </FormControl>
 
-          <LineChart
-            xAxis={[
-              {
-                id: "Año",
-                scaleType: "band",
-                data: xIgaeMensual,
-              },
-            ]}
-            series={[
-              {
-                data: dataGraficaDos,
-                color: "#f28e2c",
-              },
-            ]}
-            height={500}
-          >
-            <ChartsReferenceLine y={0} />
-          </LineChart>
+          <LineChartComponent
+            xData={xIgaeMensual}
+            dataGrafica={dataGraficaDos}
+            color="#f28e2c"
+          />
         </div>
-
-        <div className="text-2xl">
-          <div>Precio del dolar</div>
-          <div>{`Fecha ${datosPrecioDolar.fecha}`}</div>
-          <div>{`Precio ${datosPrecioDolar.dato}`}</div>
-        </div>
-      </div>
-      <div className="flex justify-end">
-        <Box component="img" src={inegiLogo} sx={{ width: 120, height: 100 }} />
       </div>
     </>
   );

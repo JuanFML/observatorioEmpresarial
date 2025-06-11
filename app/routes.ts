@@ -10,7 +10,16 @@ export default [
   index("routes/index.tsx"),
   route("camino", "routes/camino.tsx"),
   route("mapaInteractivo", "routes/mapaInteractivo.tsx"),
-  route("indicadores-nacionales", "routes/indicesNacionales.tsx"),
+  route("mercado-financiero", "routes/mercadoFinanciero.tsx"),
+
+  ...prefix("indicadores-nacionales", [
+    index("./indicadoresNacionales/home.tsx"),
+    layout("./indicadoresNacionales/layout.tsx", [
+      route("actividad-economica", "routes/indNacActividadEconomica.tsx"),
+      route("confianza-empresarial", "routes/indNacConfianzaEmpresarial.tsx"),
+      route("confianza-del-consumidor", "routes/indNacConfianzaConsumidor.tsx"),
+    ]),
+  ]),
 
   ...prefix("indicadores-locales", [
     index("./indicadoresLocales/home.tsx"),

@@ -3,22 +3,18 @@ import { NavBar } from "~/components/NavBar";
 import { SideBar } from "~/components/SideBar";
 const tabs = [
   {
-    title: "Actividad Industrial",
-    link: "/indicadores-locales/actividad-industrial",
+    title: "Actividad Económica",
+    link: "/indicadores-nacionales/actividad-economica",
   },
   {
-    title: "Seguridad y Derecho",
-    link: "/indicadores-locales/seguridad-y-derecho",
+    title: "Confianza Empresarial",
+    link: "/indicadores-nacionales/confianza-empresarial",
   },
-  { title: "Ambientales", link: "/indicadores-locales/ambientales" },
-  { title: "Sociales", link: "/indicadores-locales/sociales" },
-  { title: "Económicos", link: "/indicadores-locales/economicos" },
   {
-    title: "Capacidad de Innovación",
-    link: "/indicadores-locales/capacidad-de-innovacion",
+    title: "Confianza del Consumidor",
+    link: "/indicadores-nacionales/confianza-del-consumidor",
   },
 ];
-
 export default function IndicadoresLocalesLayout() {
   return (
     <>

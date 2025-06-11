@@ -111,8 +111,8 @@ export function ActividadIndustrial(props: IndicadoresLocalesType) {
         <div className="col-span-2 text-2xl font-semibold ">
           Indicador Mensual de la Actividad Industrial por Entidad Federativa
           (IMAIEF)
-          <div className="text-lg">Coahuila de Zaragoza</div>
-          <div className="text-lg">
+          <div className="text-lg font-normal">Coahuila de Zaragoza</div>
+          <div className="text-lg font-normal">
             Base 2018. Serie de enero 2003 a enero 2025
           </div>
         </div>

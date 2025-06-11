@@ -13,6 +13,21 @@ export const meses = [
   "DIC",
 ];
 
+export const mesesStrings = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
+
 export const indicadoresIgae = [
   "Indicador Global de la Actividad Económica",
   "Actividades primarias",
