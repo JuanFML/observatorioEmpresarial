@@ -45,9 +45,7 @@ export const IndicadoresBanxico = (props: IndicadoresBanxicoType) => {
           />
         </div>
         <div>
-          <div className="pb-4">
-            Índice Nacional de Precios al consumidor variación anual
-          </div>
+          <div className="pb-4">Índice Nacional de Precios al consumidor</div>
           <LineChartComponent
             xData={inflacionFechas}
             dataGrafica={inflacionDatos}

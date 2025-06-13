@@ -33,9 +33,7 @@ export function ConfianzaEmpresarial(props: ConfianzaEmpresarialType) {
           Confianza Empresarial
         </div>
         <div>
-          <div className="pb-4">
-            Indicador global de opinión empresarial de confianza
-          </div>
+          <div className="pb-4">Indicador global de confianza empresarial</div>
 
           <LineChartComponent
             xData={months}
@@ -71,7 +69,7 @@ export function ConfianzaEmpresarial(props: ConfianzaEmpresarialType) {
           />
         </div>
         <div>
-          <div className="pb-4">Sector social</div>
+          <div className="pb-4">Sector servicios</div>
 
           <LineChartComponent
             xData={months}

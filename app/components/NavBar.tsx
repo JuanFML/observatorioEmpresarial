@@ -104,6 +104,13 @@ export const NavBar = () => {
                 </Button>
               </Box>
               <Box alignContent={"center"}>
+                <a href={"Noticias.html"}>
+                  <Button variant="text" size="large">
+                    <Typography fontWeight={600}>Noticias</Typography>
+                  </Button>
+                </a>
+              </Box>
+              <Box alignContent={"center"}>
                 <Button variant="text" size="large">
                   <Typography fontWeight={600}>Acerca de</Typography>
                 </Button>

@@ -37,14 +37,16 @@ export async function loader({ params }: Route.LoaderArgs) {
   };
 }
 
-export default function IndicesNacionales({
+export default function MercadoFinanciero({
   loaderData,
 }: Route.ComponentProps) {
   return (
-    <IndicadoresBanxico
-      datosPrecioDolar={loaderData.datosPrecioDolar}
-      datosTasaObjetivo={loaderData.datosTasaObjetivo}
-      datosInflacion={loaderData.datosInflacion}
-    />
+    <>
+      <IndicadoresBanxico
+        datosPrecioDolar={loaderData.datosPrecioDolar}
+        datosTasaObjetivo={loaderData.datosTasaObjetivo}
+        datosInflacion={loaderData.datosInflacion}
+      />
+    </>
   );
 }

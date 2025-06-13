@@ -11,6 +11,7 @@ export default [
   route("camino", "routes/camino.tsx"),
   route("mapaInteractivo", "routes/mapaInteractivo.tsx"),
   route("mercado-financiero", "routes/mercadoFinanciero.tsx"),
+  route("noticias", "routes/noticias.tsx"),
 
   ...prefix("indicadores-nacionales", [
     index("./indicadoresNacionales/home.tsx"),

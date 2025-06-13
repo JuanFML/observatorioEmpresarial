@@ -1,0 +1,56 @@
+{
+    "news": [
+        {
+            "id": 1,
+            "title": "Nueva inversión en La Laguna",
+            "description": "Importante empresa anuncia inversión millonaria en la región generando más de 500 empleos",
+            "category": "economia",
+            "image": "images/inversion.jpg",
+            "date": "2023-05-20"
+        },
+        {
+            "id": 2,
+            "title": "Mejoras en infraestructura vial",
+            "description": "Ayuntamiento anuncia plan de renovación de calles principales",
+            "category": "manufactura",
+            "image": "images/calles.jpg", 
+            "date": "2023-05-19"
+        },
+        {
+            "id": 3,
+            "title": "Nuevo proyecto educativo",
+            "description": "Inauguran centro de investigación tecnológica en universidad local",
+            "category": "local",
+            "image": "images/educacion.jpg",
+            "date": "2023-05-18"
+        },
+        {
+            "id": 4,
+            "title": "Reforma fiscal en debate",
+            "description": "Congreso discute nuevas medidas tributarias para el próximo año",
+            "category": "politica",
+            "image": "images/congreso.jpg",
+            "date": "2023-05-17"
+        },
+        {
+            "id": 5,
+            "title": "Crecimiento del sector agrícola",
+            "description": "Productores locales reportan incremento en exportaciones",
+            "category": "economia",
+            "image": "images/agricultura.jpg",
+            "date": "2023-05-16"
+        }
+    ],
+    "breakingNews": [
+        {
+            "title": "Evento cultural masivo",
+            "image": "images/cultura.jpg",
+            "description": "Festival internacional de las artes llegará a La Laguna"
+        },
+        {
+            "title": "Desarrollo tecnológico",
+            "image": "images/tecnologia.jpg",
+            "description": "Parque de innovación atrae nuevas empresas tecnológicas"
+        }
+    ]
+}
