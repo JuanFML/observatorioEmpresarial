@@ -12,11 +12,13 @@ export async function loader({ params }: Route.LoaderArgs) {
     "app/assets/docs/ENCO_b_Indicador_de_confianza_del_consumidor.xlsx"
   );
   const confianzaFileBuffer = fs.readFileSync(confianzaFile); // Synchronously read the file
-  const { months, consumidorData } = processData(confianzaFileBuffer);
+  const { months, consumidorData, diferenciaAnualData } =
+    processData(confianzaFileBuffer);
 
   return {
     months,
     consumidorData,
+    diferenciaAnualData,
   };
 }
 
@@ -28,6 +30,7 @@ export default function IndicadoresNacionalesActividadEconomica({
       <ConfianzaConsumidor
         months={loaderData.months}
         consumidorData={loaderData.consumidorData}
+        diferenciaAnualData={loaderData.diferenciaAnualData}
       />
     </>
   );
@@ -38,6 +41,7 @@ const processData = (
 ): {
   months: string[];
   consumidorData: number[];
+  diferenciaAnualData: number[];
 } => {
   const workbook = XLSX.read(buffer);
   const sheetName = workbook.SheetNames;
@@ -62,8 +66,14 @@ const processData = (
     .map((row) => row[1])
     .filter((data) => data != null);
 
+  const diferenciaAnualData = rawData
+    .slice(11)
+    .map((row) => row[2])
+    .filter((data) => data != null);
+
   return {
     months,
     consumidorData,
+    diferenciaAnualData,
   };
 };

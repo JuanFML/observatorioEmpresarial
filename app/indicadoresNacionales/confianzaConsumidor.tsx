@@ -4,12 +4,14 @@ import { colors } from "~/utils/constants";
 type ConfianzaConsumidorType = {
   months: string[];
   consumidorData: number[];
+  diferenciaAnualData: number[];
 };
 
 export function ConfianzaConsumidor(props: ConfianzaConsumidorType) {
-  let { months, consumidorData } = props;
+  let { months, consumidorData, diferenciaAnualData } = props;
   months = months.slice(-12);
   consumidorData = consumidorData.slice(-12);
+  diferenciaAnualData = diferenciaAnualData.slice(-12);
 
   return (
     <>
@@ -17,14 +19,26 @@ export function ConfianzaConsumidor(props: ConfianzaConsumidorType) {
         <div className="col-span-2 text-2xl font-semibold ">
           Indicador de Confianza del Consdumidor
           <div className="text-lg font-normal">
-            Series mensual de abril de 2001 a abril 2025
+            Cifras originales (sin desestacionalizar)
           </div>
         </div>
+
         <div>
+          <div className="pb-4">Serie mensual </div>
+
           <LineChartComponent
             xData={months}
             dataGrafica={consumidorData}
             color={colors[0]}
+          />
+        </div>
+        <div>
+          <div className="pb-4">Diferencia mensual</div>
+
+          <LineChartComponent
+            xData={months}
+            dataGrafica={diferenciaAnualData}
+            color={colors[1]}
           />
         </div>
       </div>

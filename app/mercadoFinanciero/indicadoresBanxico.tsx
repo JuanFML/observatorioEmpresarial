@@ -42,6 +42,11 @@ export const IndicadoresBanxico = (props: IndicadoresBanxicoType) => {
             xData={tasaObjetivoFechas}
             dataGrafica={tasaObjetivoDatos}
             color={colors[1]}
+            yAxisOps={[
+              {
+                min: 0,
+              },
+            ]}
           />
         </div>
         <div>

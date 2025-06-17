@@ -12,8 +12,11 @@ import {
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import cidesieLogo from "../assets/images/Logo_CIDESIE.png";
+import ctcLogo from "../assets/images/ctc_logo.jpeg";
 import inegiLogo from "../assets/images/inegi_logo.jpg";
 import banxicoLogo from "../assets/images/banxico.png";
+import imcoLogo from "../assets/images/IMCO_logo.png";
+import denueLogo from "../assets/images/denue.jpg";
 
 const indicadores = [
   ["Nacionales", "indicadores-nacionales"],
@@ -46,14 +49,18 @@ export const NavBar = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" }, gap: 10 }}
+              sx={{
+                flexGrow: 1,
+                display: { xs: "flex", md: "flex" },
+                gap: { lg: 5, xl: 10 },
+              }}
             >
               <Link to={"/"}>
                 <Button>
                   <Box
                     component="img"
-                    src={cidesieLogo}
-                    sx={{ width: 60, height: 90 }}
+                    src={ctcLogo}
+                    sx={{ width: 130, height: 90 }}
                   />
                 </Button>
               </Link>
@@ -104,39 +111,74 @@ export const NavBar = () => {
                 </Button>
               </Box>
               <Box alignContent={"center"}>
-                <a href={"Noticias.html"}>
+                <Link to={"/mapaInteractivo"}>
+                  <Button variant="text" size="large">
+                    <Typography fontWeight={600}>Mapa Interactivo</Typography>
+                  </Button>
+                </Link>
+              </Box>
+              <Box alignContent={"center"}>
+                <a
+                  href={"Noticias.html"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Button variant="text" size="large">
                     <Typography fontWeight={600}>Noticias</Typography>
                   </Button>
                 </a>
               </Box>
               <Box alignContent={"center"}>
-                <Button variant="text" size="large">
-                  <Typography fontWeight={600}>Acerca de</Typography>
-                </Button>
+                <Link to={"/acercaDeNosotros"}>
+                  <Button variant="text" size="large">
+                    <Typography fontWeight={600}>Acerca de</Typography>
+                  </Button>
+                </Link>
               </Box>
               <Box alignContent={"center"}>
                 <Button variant="text" size="large">
                   <Typography fontWeight={600}>Contacto</Typography>
                 </Button>
               </Box>
+              <div className="flex justify-end items-center gap-2">
+                {location.pathname.includes("indicadores") && (
+                  <Link to={"https://www.inegi.org.mx/default.html"}>
+                    <Box
+                      component="img"
+                      src={inegiLogo}
+                      sx={{ width: 90, height: 60 }}
+                    />
+                  </Link>
+                )}
+                {location.pathname.includes("mercado") && (
+                  <Link to={"https://www.banxico.org.mx/"}>
+                    <Box
+                      component="img"
+                      src={banxicoLogo}
+                      sx={{ width: 100, height: 70 }}
+                    />
+                  </Link>
+                )}
+                {location.pathname.includes("indicadores-locales") && (
+                  <Link to={"https://imco.org.mx/"}>
+                    <Box
+                      component="img"
+                      src={imcoLogo}
+                      sx={{ width: 100, height: 70 }}
+                    />
+                  </Link>
+                )}
+                {location.pathname.includes("mapa") && (
+                  <Link to={"https://www.inegi.org.mx/app/mapa/denue/"}>
+                    <Box
+                      component="img"
+                      src={denueLogo}
+                      sx={{ width: 100, height: 70 }}
+                    />
+                  </Link>
+                )}
+              </div>
             </Box>
-            <div className="flex justify-end">
-              {location.pathname.includes("indicadores") && (
-                <Box
-                  component="img"
-                  src={inegiLogo}
-                  sx={{ width: 90, height: 60 }}
-                />
-              )}
-              {location.pathname.includes("mercado") && (
-                <Box
-                  component="img"
-                  src={banxicoLogo}
-                  sx={{ width: 100, height: 70 }}
-                />
-              )}
-            </div>
           </Toolbar>
         </Container>
       </AppBar>

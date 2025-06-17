@@ -32,7 +32,6 @@ export function ActividadEconomica(props: IndicesINEGIType) {
   const [dataGraficaUno, setDataGraficaUno] = useState<number[]>(
     rawIgaeAnual[inicioDeDatos + 0].slice(largoDatos - 12, largoDatos)
   );
-  const [indicadorGraficaDos, setIndicadorGraficaDos] = useState<number>(0);
   const [dataGraficaDos, setDataGraficaDos] = useState<number[]>(
     rawIgaeMensual[inicioDeDatos + 0].slice(largoDatos - 12, largoDatos)
   );
@@ -48,26 +47,21 @@ export function ActividadEconomica(props: IndicesINEGIType) {
 
   useEffect(() => {
     setDataGraficaDos(
-      rawIgaeMensual[inicioDeDatos + indicadorGraficaDos].slice(
+      rawIgaeMensual[inicioDeDatos + indicadorGraficaUno].slice(
         largoDatosMensual - 12,
         largoDatosMensual
       )
     );
-  }, [indicadorGraficaDos]);
+  }, [indicadorGraficaUno]);
 
   return (
     <>
       <div className="grid grid-cols-2 p-5 gap-7">
         <div className="col-span-2 text-2xl font-semibold ">
           Indicador Global de la Actividad Economica (IGAE)
-          <div className="text-lg font-normal">
-            Series desestacionalizadas. Indice Base 2018 = 100
-          </div>
-          <div className="text-lg font-normal">
-            Variación porcentual respecto al mes inmediato anterior.
-          </div>
         </div>
-        <div>
+
+        <div className="col-span-2">
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Indicador</InputLabel>
             <Select
@@ -84,7 +78,14 @@ export function ActividadEconomica(props: IndicesINEGIType) {
               ))}
             </Select>
           </FormControl>
-
+        </div>
+        <div className="text-lg font-normal">
+          Series desestacionalizadas. Indice Base 2018 = 100
+        </div>
+        <div className="text-lg font-normal">
+          Variación porcentual respecto al mes inmediato anterior.
+        </div>
+        <div>
           <LineChartComponent
             xData={xIgaeAnual}
             dataGrafica={dataGraficaUno}
@@ -92,23 +93,6 @@ export function ActividadEconomica(props: IndicesINEGIType) {
           />
         </div>
         <div>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Indicador</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={indicadorGraficaDos}
-              label="Indicador"
-              onChange={(event) => {
-                setIndicadorGraficaDos(event.target.value);
-              }}
-            >
-              {indicadoresIgae.map((indicador, index) => (
-                <MenuItem value={index}>{indicador}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
           <LineChartComponent
             xData={xIgaeMensual}
             dataGrafica={dataGraficaDos}

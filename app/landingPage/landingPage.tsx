@@ -4,13 +4,9 @@ import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
-type LandingPageType = {
-  datosPrecioDolar: { fecha: string; dato: string };
-};
+type LandingPageType = {};
 
 export function LandingPage(props: LandingPageType) {
-  const { datosPrecioDolar } = props;
-
   const text = [
     "Actualización del mercado empresarial.",
     "Nuevas oportunidades de inversión.",
@@ -46,8 +42,7 @@ export function LandingPage(props: LandingPageType) {
             Bienvenido(a) al Observatorio Empresarial
           </h1>
           <p className="text-white text-[0.8rem]">
-            del Centro de Investigación para el Desarrollo Sostenible e
-            Innovación Empresarial
+            del Centro de Transfrencia del Conocimiento
           </p>
         </div>
         <div className="py-4 pl-10">
@@ -58,7 +53,7 @@ export function LandingPage(props: LandingPageType) {
       </div>
       <div className="flex flex-col items-center text-center gap-10 py-5 text-[#0056b3]">
         <p className="w-3/4">
-          Creado por el <b>CIDESIE</b>, el Observatorio Empresarial tiene como
+          Creado por el <b>CTC</b>, el Observatorio Empresarial tiene como
           objetivo ofrecer análisis detallados sobre el entorno económico y
           empresarial del noreste de México mediante un enfoque basado en datos,
           fomentando el desarrollo empresarial estratégico e informado.

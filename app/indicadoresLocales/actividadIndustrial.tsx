@@ -57,7 +57,7 @@ export function ActividadIndustrial(props: IndicadoresLocalesType) {
     (_, colIndex) => !unwantedItaeeIndex.includes(colIndex)
   );
 
-  const [indicadorGraficaImaiefAnual, setIndicadorGraficaImaiefAnual] =
+  const [indicadorGraficaImaief, setIndicadorGraficaImaief] =
     useState<number>(0);
   const [dataGraficaImaiefAnual, setDataGraficaImaiefAnual] = useState<
     number[]
@@ -65,12 +65,10 @@ export function ActividadIndustrial(props: IndicadoresLocalesType) {
 
   useEffect(() => {
     setDataGraficaImaiefAnual(
-      anualRawDataImaief[indicadorGraficaImaiefAnual].slice(0, -1)
+      anualRawDataImaief[indicadorGraficaImaief].slice(0, -1)
     );
-  }, [indicadorGraficaImaiefAnual]);
+  }, [indicadorGraficaImaief]);
 
-  const [indicadorGraficaImaiefMensual, setIndicadorGraficaImaiefMensual] =
-    useState<number>(0);
   const [dataGraficaImaiefMensual, setDataGraficaImaiefMensual] = useState<
     number[]
   >(
@@ -82,11 +80,12 @@ export function ActividadIndustrial(props: IndicadoresLocalesType) {
 
   useEffect(() => {
     setDataGraficaImaiefMensual(
-      monthlyRawDataImaief[
-        inicioDeDatosImaief + indicadorGraficaImaiefMensual
-      ].slice(largoDatosMonthlyImaief - 12, largoDatosMonthlyImaief)
+      monthlyRawDataImaief[inicioDeDatosImaief + indicadorGraficaImaief].slice(
+        largoDatosMonthlyImaief - 12,
+        largoDatosMonthlyImaief
+      )
     );
-  }, [indicadorGraficaImaiefMensual]);
+  }, [indicadorGraficaImaief]);
 
   const [indicadorGraficaItaee, setIndicadorGraficaItaee] = useState<number>(0);
   const [dataGraficaItaee, setDataGraficaItaee] = useState<number[]>(
@@ -117,13 +116,15 @@ export function ActividadIndustrial(props: IndicadoresLocalesType) {
           </div>
         </div>
         {/* Grafica IMAIEF ANUAL */}
-        <div>
-          <div className="pb-4">Serie anual</div>
+        <div className="col-span-2">
           <SelectComponent
-            indicadorGrafica={indicadorGraficaImaiefAnual}
-            setIndicadorGrafica={setIndicadorGraficaImaiefAnual}
+            indicadorGrafica={indicadorGraficaImaief}
+            setIndicadorGrafica={setIndicadorGraficaImaief}
             indicadores={indicadoresImaief}
           />
+        </div>
+        <div>
+          <div className="pb-4">Serie anual</div>
 
           <LineChartComponent
             xData={xDataAnualImaief}
@@ -137,12 +138,6 @@ export function ActividadIndustrial(props: IndicadoresLocalesType) {
         <div>
           <div className="pb-4">Serie mensual</div>
 
-          <SelectComponent
-            indicadorGrafica={indicadorGraficaImaiefMensual}
-            setIndicadorGrafica={setIndicadorGraficaImaiefMensual}
-            indicadores={indicadoresImaief}
-          />
-
           <LineChartComponent
             xData={xDataMonthlyImaief}
             dataGrafica={dataGraficaImaiefMensual}
@@ -155,7 +150,7 @@ export function ActividadIndustrial(props: IndicadoresLocalesType) {
           Indicador Trimestral de la Actividad Industrial por Economica Estatal
           (ITAEE)
           <div className="text-lg">Coahuila de Zaragoza</div>
-          <div className="text-lg">Base 2018</div>
+          <div className="text-lg">Serie detallada. Base 2018</div>
         </div>
         <div>
           <SelectComponent

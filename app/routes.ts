@@ -9,6 +9,7 @@ import {
 export default [
   index("routes/index.tsx"),
   route("camino", "routes/camino.tsx"),
+  route("acercaDeNosotros", "routes/acercaDe.tsx"),
   route("mapaInteractivo", "routes/mapaInteractivo.tsx"),
   route("mercado-financiero", "routes/mercadoFinanciero.tsx"),
   route("noticias", "routes/noticias.tsx"),

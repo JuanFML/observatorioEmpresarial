@@ -4,10 +4,11 @@ type LineChartComponent = {
   xData: string[];
   dataGrafica: number[];
   color: string;
+  yAxisOps?: any;
 };
 
 export const LineChartComponent = (props: LineChartComponent) => {
-  const { xData, dataGrafica, color } = props;
+  const { xData, dataGrafica, color, yAxisOps } = props;
   return (
     <div>
       <LineChart
@@ -25,6 +26,7 @@ export const LineChartComponent = (props: LineChartComponent) => {
           },
         ]}
         height={500}
+        yAxis={yAxisOps}
       >
         <ChartsReferenceLine y={0} />
       </LineChart>
