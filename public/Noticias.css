@@ -59,6 +59,24 @@
     }
 }
 
+body, html {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+.news-grid {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+.news-item {
+  margin-bottom: 20px;
+}
+
+
 /* General styles */
 body {
     font-family: Arial, sans-serif;
@@ -190,7 +208,7 @@ body {
 
 /* Footer */
 footer {
-    position: fixed;
+    position: static;
     bottom: 0;
     left: 0;
     width: 100%;
