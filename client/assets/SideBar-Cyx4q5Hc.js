@@ -1,0 +1,1 @@
+import{l as s,q as n}from"./chunk-GNGMS2XR-CXDedMy8.js";const m=l=>{const{tabs:e}=l;return s.jsx("nav",{className:"border rounded-lg h-fit shadow-sm bg-slate-50 my-4 ml-2 mr-2 xl:mr-0 ",children:s.jsx("ul",{className:"gap-3 ",children:e.map((a,r)=>s.jsx(n,{to:a.link,className:"sidebar-link",children:s.jsx("span",{className:"pl-4",children:a.title})},r))})})};export{m as S};

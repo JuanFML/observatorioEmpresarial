@@ -1,0 +1,1 @@
+import{w as i}from"./with-props-D6JVR6rt.js";import{l as t}from"./chunk-GNGMS2XR-CXDedMy8.js";const n=i(function({}){return t.jsx(t.Fragment,{children:t.jsx("iframe",{src:"/noticiasPage/Noticias.html",width:"100%",height:"600"})})});export{n as default};
