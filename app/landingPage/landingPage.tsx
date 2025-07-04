@@ -53,10 +53,11 @@ export function LandingPage(props: LandingPageType) {
       </div>
       <div className="flex flex-col items-center text-center gap-10 py-5 text-[#0056b3]">
         <p className="w-3/4">
-          Creado por el <b>CTC</b>, el Observatorio Empresarial tiene como
-          objetivo ofrecer análisis detallados sobre el entorno económico y
-          empresarial del noreste de México mediante un enfoque basado en datos,
-          fomentando el desarrollo empresarial estratégico e informado.
+          Creado por el <b>Centro de Transfrencia del Conocimiento (CTC)</b>, el
+          Observatorio Empresarial tiene como objetivo ofrecer análisis
+          detallados sobre el entorno económico y empresarial del noreste de
+          México mediante un enfoque basado en datos, fomentando el desarrollo
+          empresarial estratégico e informado.
         </p>
         <p className="w-3/4">
           A través de estudios de mercado exhaustivos en diferentes sectores,
