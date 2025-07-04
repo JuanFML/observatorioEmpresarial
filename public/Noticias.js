@@ -266,15 +266,16 @@ function initializeSearch() {
 
 // Array of RSS feed URLs
 const rssFeeds = [
-    //'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://expansion.mx/rss/empresas'),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://rss.app/feeds/KqGc8UnHccHQamaT.xml')//https://cdn.feedcontrol.net/10268/18374-UEuzIY9gDjDwH.xml')
-    //'https://www.eleconomista.com.mx/rss/ultimas-noticias',
-    //'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://news.google.com/rss/search?q=laguna+economía&hl=es-419&gl=MX&ceid=MX:es-419')
-    // 'https://www.eleconomista.com.mx/rss/ultimas-noticias',
-    // 'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFZ4Y0d0b0VnSmxiaWdBUAE?hl=es-419&gl=MX&ceid=MX:es-419',    
-    //'http://www.elsiglodetorreon.com.mx/channel/finanzas.xml',
-    //'https://api.allorigins.win/raw?url=' + encodeURIComponent('http://www.elsiglodetorreon.com.mx/channel/finanzas.xml'),
-    //'https://api.allorigins.win/raw?url=' + encodeURIComponent('http://www.elsiglodetorreon.com.mx/channel/local.xml')
+  //'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://expansion.mx/rss/empresas'),
+  "https://api.allorigins.win/raw?url=" +
+    encodeURIComponent("https://rss.app/feeds/KqGc8UnHccHQamaT.xml"), //https://cdn.feedcontrol.net/10268/18374-UEuzIY9gDjDwH.xml')
+  //'https://www.eleconomista.com.mx/rss/ultimas-noticias',
+  //'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://news.google.com/rss/search?q=laguna+economía&hl=es-419&gl=MX&ceid=MX:es-419')
+  // 'https://www.eleconomista.com.mx/rss/ultimas-noticias',
+  // 'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFZ4Y0d0b0VnSmxiaWdBUAE?hl=es-419&gl=MX&ceid=MX:es-419',
+  //'http://www.elsiglodetorreon.com.mx/channel/finanzas.xml',
+  //'https://api.allorigins.win/raw?url=' + encodeURIComponent('http://www.elsiglodetorreon.com.mx/channel/finanzas.xml'),
+  //'https://api.allorigins.win/raw?url=' + encodeURIComponent('http://www.elsiglodetorreon.com.mx/channel/local.xml')
 ];
 
 // Fetch and parse multiple RSS feeds
@@ -353,56 +354,64 @@ function transformGNewsToNewsData(articles) {
     url: article.url,
   }));
 }
-<<<<<<< HEAD
-=======
 
-
-
-document.getElementById('btnNoticiasRecientes').addEventListener('click', async () => {
-  await cargarNoticiasGNews();
-  await cargarRSSZocalo();
-});
+document
+  .getElementById("btnNoticiasRecientes")
+  .addEventListener("click", async () => {
+    await cargarNoticiasGNews();
+    await cargarRSSZocalo();
+  });
 
 async function cargarNoticiasGNews() {
-  const query = 'economía OR negocios OR Coahuila';
-  const url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&lang=es&country=mx&max=6&token=${GNEWS_API_KEY}`;
+  const query = "economía OR negocios OR Coahuila";
+  const url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(
+    query
+  )}&lang=es&country=mx&max=6&token=${GNEWS_API_KEY}`;
 
   try {
     const response = await fetch(url);
     const data = await response.json();
-    const newsContainer = document.getElementById('mainNews');
+    const newsContainer = document.getElementById("mainNews");
 
-    data.articles.forEach(article => {
-      const div = document.createElement('article');
-      div.className = 'news-item';
+    data.articles.forEach((article) => {
+      const div = document.createElement("article");
+      div.className = "news-item";
       div.innerHTML = `
-        <img src="${article.image || 'img/placeholder.jpg'}" alt="${article.title}" onclick="window.open('${article.url}', '_blank')" style="cursor:pointer">
+        <img src="${article.image || "img/placeholder.jpg"}" alt="${
+        article.title
+      }" onclick="window.open('${
+        article.url
+      }', '_blank')" style="cursor:pointer">
         <div class="news-content">
           <h3><a href="${article.url}" target="_blank">${article.title}</a></h3>
-          <p>${article.description || ''}</p>
-          <span class="date">${new Date(article.publishedAt).toLocaleDateString('es-MX')}</span>
+          <p>${article.description || ""}</p>
+          <span class="date">${new Date(article.publishedAt).toLocaleDateString(
+            "es-MX"
+          )}</span>
         </div>
       `;
       newsContainer.appendChild(div);
     });
   } catch (error) {
-    console.error('Error cargando noticias GNews:', error);
+    console.error("Error cargando noticias GNews:", error);
   }
 }
 
 async function cargarRSSZocalo() {
-  const rssUrl = 'https://www.zocalo.com.mx/category/dinero/feed';
-  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+  const rssUrl = "https://www.zocalo.com.mx/category/dinero/feed";
+  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
+    rssUrl
+  )}`;
 
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    const rssContainer = document.getElementById('rssNoticias');
-    rssContainer.innerHTML = ''; // REEMPLAZA
+    const rssContainer = document.getElementById("rssNoticias");
+    rssContainer.innerHTML = ""; // REEMPLAZA
 
-    data.items.slice(0, 5).forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'rss-item';
+    data.items.slice(0, 5).forEach((item) => {
+      const div = document.createElement("div");
+      div.className = "rss-item";
       div.innerHTML = `
         <h4><a href="${item.link}" target="_blank">${item.title}</a></h4>
         <p>${item.description.slice(0, 80)}...</p>
@@ -410,8 +419,6 @@ async function cargarRSSZocalo() {
       rssContainer.appendChild(div);
     });
   } catch (error) {
-    console.error('Error cargando RSS Zócalo:', error);
+    console.error("Error cargando RSS Zócalo:", error);
   }
 }
-
->>>>>>> a95680e538e2e4e491b85021f54ddd82963741e2
