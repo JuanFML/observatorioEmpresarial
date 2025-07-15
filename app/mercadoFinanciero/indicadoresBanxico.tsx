@@ -14,8 +14,26 @@ export const IndicadoresBanxico = (props: IndicadoresBanxicoType) => {
 
   const dolarFechas = datosPrecioDolar.map((dato) => dato.fecha);
   const dolarDatos = datosPrecioDolar.map((dato) => Number(dato.dato));
-  const tasaObjetivoFechas = datosTasaObjetivo.map((dato) => dato.fecha);
-  const tasaObjetivoDatos = datosTasaObjetivo.map((dato) => Number(dato.dato));
+
+  // Solo obtener los datos cuando la tasa objetivo cambio de valor
+  let tasaObjetivo = datosTasaObjetivo[0].dato;
+  const soloCambiosEnTasaObjetivo = datosTasaObjetivo
+    .map((dato) => {
+      if (dato.dato == tasaObjetivo) {
+        return;
+      } else {
+        tasaObjetivo = dato.dato;
+        return dato;
+      }
+    })
+    .filter((dato) => dato != null);
+  const tasaObjetivoFechas = soloCambiosEnTasaObjetivo.map(
+    (dato) => dato.fecha
+  );
+  const tasaObjetivoDatos = soloCambiosEnTasaObjetivo.map((dato) =>
+    Number(dato.dato)
+  );
+
   const inflacionFechas = datosInflacion.map((dato) => dato.fecha);
   const inflacionDatos = datosInflacion.map((dato) => Number(dato.dato));
   return (

@@ -12,7 +12,6 @@ import { Form } from "react-router";
 import { Circle } from "~/components/Circle";
 import { ListaLocales } from "~/components/ListaLocales";
 import { NavBar } from "~/components/NavBar";
-import { TooltipComponent } from "~/components/TooltipComponent";
 import { colors } from "~/utils/constants";
 type MapaProps = {
   API_KEY: string;

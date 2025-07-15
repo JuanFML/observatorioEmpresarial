@@ -3,6 +3,7 @@ import fondoObservatorio from "../assets/images/fondo_observatorio.png";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { EncuestaComponent } from "~/components/EncuestaComponent";
 
 type LandingPageType = {};
 
@@ -24,6 +25,7 @@ export function LandingPage(props: LandingPageType) {
   return (
     <>
       <NavBar />
+      <EncuestaComponent />
       <div
         className="flex-col content-center"
         style={{

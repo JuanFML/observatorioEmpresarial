@@ -9,9 +9,12 @@ export async function loader({ params }: Route.LoaderArgs) {
   const idInflacion = "SP30578";
   const unMesAntes = new Date();
   unMesAntes.setMonth(unMesAntes.getMonth() - 1);
+  const unAnoAntes = new Date();
+  unAnoAntes.setFullYear(unAnoAntes.getFullYear() - 1);
 
   const fechaInicial = unMesAntes.toISOString().split("T")[0];
   const fechaFinal = new Date().toISOString().split("T")[0];
+  const fechaInicialTasa = unAnoAntes.toISOString().split("T")[0];
 
   const responseDolar = await getSeriePorFecha(
     idPrecioDolar,
@@ -21,7 +24,7 @@ export async function loader({ params }: Route.LoaderArgs) {
 
   const responseTasa = await getSeriePorFecha(
     idTasaObjetivo,
-    fechaInicial,
+    fechaInicialTasa,
     fechaFinal
   );
 
